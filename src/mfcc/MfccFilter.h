@@ -12,7 +12,6 @@ namespace voice {
     void init();
     std::vector<std::vector<float>>& getFilter();
   private:
-    static constexpr float TWO_PI = 8.0F * std::atan(1.0F);
     static const int FILTER_NUM = 26; // Number of filters
     static const unsigned long FFT_LEN = 512; // FFT points
 
