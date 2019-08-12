@@ -1,5 +1,6 @@
 set (MFCC_SRCS
   MfccFilter.cc
+  MfccProcessor.cc
   WavReader.cc
   )
 

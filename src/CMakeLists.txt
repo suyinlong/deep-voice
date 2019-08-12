@@ -10,7 +10,7 @@ endif()
 
 set (CXX_FLAGS
   -g
-  -std=c++11
+  -std=c++14
   )
 string (REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
