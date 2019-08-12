@@ -1,5 +1,6 @@
 enable_testing()
 
+set (EXTRA_LIBS ${EXTRA_LIBS} gtest_main)
 set (EXTRA_LIBS ${EXTRA_LIBS} deep-voice-mfcc)
 
 add_executable (wav-reader-test WavReader.test.cc)

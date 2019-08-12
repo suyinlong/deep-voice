@@ -1,15 +1,16 @@
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
+#include "gtest/gtest.h"
 
-// Fake exaple test now
-unsigned int Factorial( unsigned int number ) {
-    return number <= 1 ? number : Factorial(number-1)*number;
+int Factorial(int n) {
+  int result = 1;
+  for (int i = 1; i <= n; i++) {
+    result *= i;
+  }
+
+  return result;
 }
 
-TEST_CASE( "Factorials are computed", "[factorial]" ) {
-    // REQUIRE( Factorial(0) == 1 );
-    REQUIRE( Factorial(1) == 1 );
-    REQUIRE( Factorial(2) == 2 );
-    REQUIRE( Factorial(3) == 6 );
-    REQUIRE( Factorial(10) == 3628800 );
+TEST(FactorialTest, Negative) {
+  EXPECT_EQ(1, Factorial(-5));
+  EXPECT_EQ(1, Factorial(-1));
+  EXPECT_GT(Factorial(-10), 0);
 }
