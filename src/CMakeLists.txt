@@ -24,6 +24,11 @@ include_directories (${PROJECT_SOURCE_DIR})
 string (TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
 message (STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
 
+include_directories (${PROJECT_SOURCE_DIR}/mfcc)
+add_subdirectory (mfcc)
+set (EXTRA_LIBS ${EXTRA_LIBS} deep-voice-mfcc)
+
 add_executable (voice voice.cc)
+target_link_libraries (voice ${EXTRA_LIBS})
 
 enable_testing()
