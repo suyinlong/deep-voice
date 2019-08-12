@@ -32,6 +32,7 @@ namespace voice {
     explicit WavReader(const std::string& filePath);
     ~WavReader();
     void init();
+    bool isInitialized();
     int getSamplingLength();
     int getFrameLength();
     std::vector<short> read();

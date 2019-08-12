@@ -1,16 +1,26 @@
+#include <iostream>
 #include "gtest/gtest.h"
+#include "MfccTestConfig.h"
+#include "mfcc/WavReader.h"
 
-int Factorial(int n) {
-  int result = 1;
-  for (int i = 1; i <= n; i++) {
-    result *= i;
-  }
+using namespace voice;
 
-  return result;
+TEST(WavReaderTest, Initilization) {
+  WavReader reader(VOICE_MFCC_FILEPATH);
+  reader.init();
+  ASSERT_TRUE(reader.isInitialized());
+  EXPECT_EQ(550, reader.getFrameLength());
+  EXPECT_EQ(22, reader.getSamplingLength());
 }
 
-TEST(FactorialTest, Negative) {
-  EXPECT_EQ(1, Factorial(-5));
-  EXPECT_EQ(1, Factorial(-1));
-  EXPECT_GT(Factorial(-10), 0);
+TEST(WavReaderTest, InitilizationFailed) {
+  WavReader reader("");
+  reader.init();
+  ASSERT_FALSE(reader.isInitialized());
+}
+
+TEST(WavReaderTest, ReadFrame) {
+  WavReader reader(VOICE_MFCC_FILEPATH);
+  reader.init();
+  EXPECT_EQ(0, reader.read().size());
 }

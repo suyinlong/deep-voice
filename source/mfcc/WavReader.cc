@@ -4,6 +4,7 @@ using namespace std;
 using namespace voice;
 
 WavReader::WavReader(const string& filePath) {
+  cout << "WavReader input WAV file: " << filePath << endl;
   file = ifstream(filePath, ios::in | ios::binary | ios::ate);
 }
 
@@ -40,6 +41,10 @@ void WavReader::init() {
   } else {
     cout << "Initilization failed." << endl;
   }
+}
+
+bool WavReader::isInitialized() {
+  return file.is_open();
 }
 
 int WavReader::getSamplingLength() {
