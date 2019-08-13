@@ -1,7 +1,6 @@
 #include "mfcc/WavReader.h"
 
 using namespace std;
-using namespace voice;
 
 namespace voice {
 
