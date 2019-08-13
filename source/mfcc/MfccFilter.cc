@@ -80,11 +80,11 @@ namespace voice {
     }
   }
 
-  int MfccFilter::getFilterNumber() {
+  int MfccFilter::getFilterNumber() const {
     return FILTER_NUM;
   }
 
-  unsigned long MfccFilter::getFftLength() {
+  unsigned long MfccFilter::getFftLength() const {
     return FFT_LEN;
   }
 
