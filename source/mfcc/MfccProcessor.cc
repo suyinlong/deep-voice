@@ -21,16 +21,16 @@ namespace voice {
       });
   }
 
-  void MfccProcessor::processHamming(vector<short>& frame) {
-    data = vector<float>(frameLength_);
-    generate(data.begin(), data.end(),
+  void MfccProcessor::processHamming(vector<short>& frame, vector<float>& buffer) {
+    buffer.resize(frameLength_, 0.0);
+    generate(buffer.begin(), buffer.end(),
       [i = 0, f = frame, h = hamming] () mutable {
         return f[i] * h[i++];
       });
   }
 
-  float MfccProcessor::frameEnergy() {
-    return inner_product(data.begin(), data.end(), data.begin(), 0.0);
+  float MfccProcessor::frameEnergy(vector<float>& buffer) {
+    return inner_product(buffer.begin(), buffer.end(), buffer.begin(), 0.0);
   }
 
 } // namespace voice

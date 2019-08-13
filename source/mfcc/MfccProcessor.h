@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <complex>
 #include <iostream>
 #include <numeric>
 #include <vector>
@@ -12,17 +13,16 @@ namespace voice {
   public:
     explicit MfccProcessor(int frameLength);
     ~MfccProcessor();
+    void initHamming();
+    void processHamming(std::vector<short>& frame, std::vector<float>& buffer);
+    float frameEnergy(std::vector<float>& buffer);
   private:
     static constexpr float PI = 4.0F * std::atan(1.0F);
     static constexpr float TWO_PI = 8.0F * std::atan(1.0F);
 
     const int frameLength_;
     std::vector<double> hamming; // Hamming window
-    std::vector<float> data; // Data
 
-    void initHamming();
-    void processHamming(std::vector<short>& frame);
-    float frameEnergy();
     void computeZeroFft();
     void computeFft();
     void computeMagSquare();
