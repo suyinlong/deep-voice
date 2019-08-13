@@ -100,13 +100,12 @@ namespace voice {
 
   void MfccProcessor::computeMelEN(int filterNumber, int fftLength, vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
     melEnergy.resize(filterNumber);
-    fill(melEnergy.begin(), melEnergy.end(), 0.0);
-    for (int i = 0; i < filterNumber; i++) {
-      for (int j = 0; j < fftLength / 2 + 1; j++) {
-        melEnergy[i] = melEnergy[i] + filterWeight[i][j] * mag[j];
-      }
-      melEnergy[i] = (float)(log(melEnergy[i]));
-    }
+    generate(melEnergy.begin(), melEnergy.end(),
+      [i = 0, f = filterWeight, m = mag] () mutable {
+        float e = inner_product(f[i].begin(), f[i].end(), m.begin(), 0.0);
+        i++;
+        return (float)(log(e));
+      });
   }
 
   void MfccProcessor::computeCepstrum(int filterNumber, vector<float>& melEnergy, vector<float>& coeff) {
