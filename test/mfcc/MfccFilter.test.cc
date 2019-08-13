@@ -14,6 +14,10 @@ namespace voice {
 
   TEST(MfccFilterTest, Initilization) {
     MfccFilter mfccFilter(samplingRate, frameLength);
+
+    EXPECT_EQ(26, mfccFilter.getFilterNumber());
+    EXPECT_EQ(512, mfccFilter.getFftLength());
+
     auto filter = mfccFilter.getFilter();
     EXPECT_EQ(26, filter.size());
     EXPECT_EQ(257, filter[0].size());

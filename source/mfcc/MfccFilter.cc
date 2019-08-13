@@ -80,6 +80,14 @@ namespace voice {
     }
   }
 
+  int MfccFilter::getFilterNumber() {
+    return FILTER_NUM;
+  }
+
+  unsigned long MfccFilter::getFftLength() {
+    return FFT_LEN;
+  }
+
   std::vector<std::vector<float>>& MfccFilter::getFilter() {
     return filterWeight;
   }
