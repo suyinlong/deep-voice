@@ -1,5 +1,5 @@
-#ifndef VOICE_MFCC_MFCCFILTER_H
-#define VOICE_MFCC_MFCCFILTER_H
+#ifndef VOICE_MFCC_MFCCFILTER_H_
+#define VOICE_MFCC_MFCCFILTER_H_
 
 #include <cmath>
 #include <vector>
@@ -26,4 +26,4 @@ namespace voice {
   };
 } // namespace voice
 
-#endif // VOICE_MFCC_MFCCFILTER_H
+#endif // VOICE_MFCC_MFCCFILTER_H_

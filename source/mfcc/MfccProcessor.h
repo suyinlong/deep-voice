@@ -1,5 +1,5 @@
-#ifndef VOICE_MFCC_MFCCPROCESSOR_H
-#define VOICE_MFCC_MFCCPROCESSOR_H
+#ifndef VOICE_MFCC_MFCCPROCESSOR_H_
+#define VOICE_MFCC_MFCCPROCESSOR_H_
 
 #include <algorithm>
 #include <cmath>
@@ -32,4 +32,4 @@ namespace voice {
   };
 } // namespace voice
 
-#endif // VOICE_MFCC_MFCCPROCESSOR_H
+#endif // VOICE_MFCC_MFCCPROCESSOR_H_

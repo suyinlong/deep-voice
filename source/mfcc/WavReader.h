@@ -1,5 +1,5 @@
-#ifndef VOICE_MFCC_WAVREADER_H
-#define VOICE_MFCC_WAVREADER_H
+#ifndef VOICE_MFCC_WAVREADER_H_
+#define VOICE_MFCC_WAVREADER_H_
 
 #include <fstream>
 #include <iostream>
@@ -49,4 +49,4 @@ namespace voice {
 
 } // namespace voice
 
-#endif // VOICE_MFCC_WAVREADER_H
+#endif // VOICE_MFCC_WAVREADER_H_
