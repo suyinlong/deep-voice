@@ -118,9 +118,10 @@ namespace voice {
     generate(coeff.begin(), coeff.end(),
       [i = 0, n = filterNumber, e = ee] () mutable {
         float co = cos(PI * ((float) i) / (float) n);
-        float t = accumulate(e.begin(), e.end(), 0.0F, [mul = co] (float& a, float& b) {
-          return a + mul * b;
-        });
+        float t = accumulate(e.begin(), e.end(), 0.0F,
+          [mul = co] (float& a, float& b) {
+            return a + mul * b;
+          });
         i++;
         return sqrt(2.0 / (float) n) * t;
       });
