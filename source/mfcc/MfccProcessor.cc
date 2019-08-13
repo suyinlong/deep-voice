@@ -17,16 +17,16 @@ namespace voice {
   void MfccProcessor::initHamming() {
     hamming = vector<double>(frameLength_);
     generate(hamming.begin(), hamming.end(),
-      [i = 0, len = frameLength_] () mutable {
-        return (float)(0.54 - 0.46 * cos((float)i++ * TWO_PI / (float)(len - 1)));
+      [&, i = 0] () mutable {
+        return (float)(0.54 - 0.46 * cos((float)i++ * TWO_PI / (float)(frameLength_ - 1)));
       });
   }
 
   void MfccProcessor::processHamming(vector<short>& frame, vector<float>& buffer) {
     buffer.resize(frameLength_, 0.0);
     generate(buffer.begin(), buffer.end(),
-      [i = 0, f = frame, h = hamming] () mutable {
-        return f[i] * h[i++];
+      [&, i = 0] () mutable {
+        return frame[i] * hamming[i++];
       });
   }
 
@@ -37,8 +37,8 @@ namespace voice {
   void MfccProcessor::processComplex(int fftLength, vector<float>& buffer, vector<complex<float>>& fft) {
     fft.resize(fftLength, complex<float>(0));
     generate(fft.begin(), fft.begin() + frameLength_,
-      [i = 0, b = buffer] () mutable {
-        return complex<float>(b[i++]);
+      [&, i = 0] () mutable {
+        return complex<float>(buffer[i++]);
       });
   }
 
@@ -93,7 +93,7 @@ namespace voice {
   void MfccProcessor::computeMagSquare(vector<complex<float>>& fft, vector<float>& mag) {
     mag.resize(fft.size());
     generate(mag.begin(), mag.end(),
-      [i = 0, fft = fft] () mutable {
+      [&, i = 0] () mutable {
         return norm(fft[i++]);
       });
   }
@@ -101,8 +101,8 @@ namespace voice {
   void MfccProcessor::computeMelEN(int filterNumber, int fftLength, vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
     melEnergy.resize(filterNumber);
     generate(melEnergy.begin(), melEnergy.end(),
-      [i = 0, f = filterWeight, m = mag] () mutable {
-        float e = inner_product(f[i].begin(), f[i].end(), m.begin(), 0.0);
+      [&, i = 0] () mutable {
+        float e = inner_product(filterWeight[i].begin(), filterWeight[i].end(), mag.begin(), 0.0);
         i++;
         return (float)(log(e));
       });
@@ -114,16 +114,18 @@ namespace voice {
       [j = 0] (float &e) mutable {
         e * ((float) j++ - 0.5F);
       });
+
+    float coeffMultiplifer = sqrt(2.0 / (float) filterNumber);
     coeff.resize(PCEP);
     generate(coeff.begin(), coeff.end(),
-      [i = 0, n = filterNumber, e = ee] () mutable {
-        float co = cos(PI * ((float) i) / (float) n);
-        float t = accumulate(e.begin(), e.end(), 0.0F,
-          [mul = co] (float& a, float& b) {
-            return a + mul * b;
+      [&, i = 0] () mutable {
+        float co = cos(PI * ((float) i) / (float) filterNumber);
+        float t = accumulate(ee.begin(), ee.end(), 0.0F,
+          [=] (float& a, float& b) {
+            return a + co * b;
           });
         i++;
-        return sqrt(2.0 / (float) n) * t;
+        return coeffMultiplifer * t;
       });
   }
 
