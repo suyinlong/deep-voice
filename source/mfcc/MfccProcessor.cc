@@ -109,16 +109,20 @@ namespace voice {
   }
 
   void MfccProcessor::computeCepstrum(int filterNumber, vector<float>& melEnergy, vector<float>& coeff) {
+    vector<float> ee(melEnergy);
+    for_each(ee.begin(), ee.end(),
+      [j = 0] (float &e) mutable {
+        e * ((float) j++ - 0.5F);
+      });
     coeff.resize(PCEP);
     generate(coeff.begin(), coeff.end(),
-      [i = 0, n = filterNumber, e = melEnergy] () mutable {
-        float t = 0.0;
-        for (int j = 0; j < n; j++) {
-          t += e[j] * cos(PI * ((float) i) / (float) n) * ((float) j - 0.5F);
-        }
-        t = sqrt(2.0 / (float) n) * t;
+      [i = 0, n = filterNumber, e = ee] () mutable {
+        float co = cos(PI * ((float) i) / (float) n);
+        float t = accumulate(e.begin(), e.end(), 0.0F, [mul = co] (float& a, float& b) {
+          return a + mul * b;
+        });
         i++;
-        return t;
+        return sqrt(2.0 / (float) n) * t;
       });
   }
 
