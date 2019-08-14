@@ -10,6 +10,10 @@ namespace voice {
     explicit MfccFilter(int samplingRate, int frameLength);
     ~MfccFilter();
     void init();
+    int getSamplingRate() const;
+    int getFrameLength() const;
+    int getHighLimit() const;
+    int getLowLimit() const;
     int getFilterNumber() const;
     unsigned long getFftLength() const;
     std::vector<std::vector<float>>& getFilter();

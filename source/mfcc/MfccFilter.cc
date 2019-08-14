@@ -80,6 +80,22 @@ namespace voice {
     }
   }
 
+  int MfccFilter::getSamplingRate() const {
+    return samplingRate_;
+  }
+
+  int MfccFilter::getFrameLength() const {
+    return frameLength_;
+  }
+
+  int MfccFilter::getHighLimit() const {
+    return highLimit_;
+  }
+
+  int MfccFilter::getLowLimit() const {
+    return lowLimit_;
+  }
+
   int MfccFilter::getFilterNumber() const {
     return FILTER_NUM;
   }
