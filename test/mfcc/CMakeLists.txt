@@ -22,3 +22,4 @@ endfunction()
 
 testCase (WavReaderTest wav-reader-test WavReader.test.cc)
 testCase (MfccFilterTest mfcc-filter-test MfccFilter.test.cc)
+testCase (MfccProcessorTest mfcc-processor-test MfccProcessor.test.cc)
