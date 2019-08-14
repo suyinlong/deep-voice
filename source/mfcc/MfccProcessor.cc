@@ -115,7 +115,7 @@ namespace voice {
     vector<float> ee(melEnergy);
     for_each(ee.begin(), ee.end(),
       [j = 0] (float &e) mutable {
-        e * ((float) j++ - 0.5F);
+        e *= ((float) j++ - 0.5F);
       });
 
     float coeffMultiplifer = sqrt(2.0 / (float) filterNumber);
