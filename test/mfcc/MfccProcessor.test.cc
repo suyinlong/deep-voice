@@ -67,4 +67,19 @@ namespace voice {
     for (int i = 0; i < 10; i++) ASSERT_NEAR(fft[i].imag(), 0.0, VOICE_MFCC_DELTA);
   }
 
+  // TEST FFT
+
+  TEST(MfccProcessorTest, ComputeMagSquare) {
+    MfccFilter mfccFilter(samplingRate, 5);
+    MfccProcessor mfccProcessor(mfccFilter, 5);
+
+    vector<complex<float>> fft = { {3.0, 4.0}, {1.0, 2.5}};
+    vector<float> mag;
+    mfccProcessor.computeMagSquare(fft, mag);
+
+    EXPECT_EQ(2, mag.size());
+    ASSERT_NEAR(mag[0], 25.0, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(mag[1], 7.25, VOICE_MFCC_DELTA);
+  }
+
 } // namespace voice
