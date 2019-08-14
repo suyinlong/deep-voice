@@ -40,7 +40,7 @@ namespace voice {
         ASSERT_FALSE(isinf(val));
         sum += val;
       }
-      ASSERT_NEAR(sum, 1.0, 1e-6);
+      ASSERT_NEAR(sum, 1.0, VOICE_MFCC_DELTA);
     }
   }
 

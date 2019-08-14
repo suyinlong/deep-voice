@@ -1,2 +1,3 @@
 // the configured options and setting for Mfcc
 #define VOICE_MFCC_FILEPATH "@VOICE_MFCC_FILEPATH@"
+#define VOICE_MFCC_DELTA 1e-6
