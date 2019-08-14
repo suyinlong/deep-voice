@@ -15,6 +15,7 @@ namespace voice {
   class MfccProcessor {
   public:
     explicit MfccProcessor(MfccFilter& mfccFilter, int frameLength);
+    explicit MfccProcessor(MfccFilter& mfccFilter);
     ~MfccProcessor();
     void initHamming(std::vector<double>& hamming);
     void processHamming(std::vector<short>& frame, std::vector<double>& hamming, std::vector<float>& buffer);

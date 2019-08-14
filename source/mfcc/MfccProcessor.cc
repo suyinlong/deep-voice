@@ -9,6 +9,11 @@ namespace voice {
       frameLength_(frameLength) {
   }
 
+  MfccProcessor::MfccProcessor(MfccFilter& mfccFilter)
+    : mfccFilter_(mfccFilter),
+      frameLength_(mfccFilter.getFrameLength()) {
+  }
+
   MfccProcessor::~MfccProcessor() {
   }
 
