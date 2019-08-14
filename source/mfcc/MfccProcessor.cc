@@ -7,14 +7,12 @@ namespace voice {
   MfccProcessor::MfccProcessor(MfccFilter& mfccFilter, int frameLength)
     : mfccFilter_(mfccFilter),
       frameLength_(frameLength) {
-    initHamming();
   }
 
   MfccProcessor::~MfccProcessor() {
-    hamming.clear();
   }
 
-  void MfccProcessor::initHamming() {
+  void MfccProcessor::initHamming(vector<double>& hamming) {
     hamming.resize(frameLength_);
     generate(hamming.begin(), hamming.end(),
       [&, i = 0] () mutable {
@@ -22,7 +20,7 @@ namespace voice {
       });
   }
 
-  void MfccProcessor::processHamming(vector<short>& frame, vector<float>& buffer) {
+  void MfccProcessor::processHamming(vector<short>& frame, vector<double>& hamming, vector<float>& buffer) {
     buffer.resize(frameLength_, 0.0);
     generate(buffer.begin(), buffer.end(),
       [&, i = 0] () mutable {

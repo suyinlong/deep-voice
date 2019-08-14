@@ -16,8 +16,8 @@ namespace voice {
   public:
     explicit MfccProcessor(MfccFilter& mfccFilter, int frameLength);
     ~MfccProcessor();
-    void initHamming();
-    void processHamming(std::vector<short>& frame, std::vector<float>& buffer);
+    void initHamming(std::vector<double>& hamming);
+    void processHamming(std::vector<short>& frame, std::vector<double>& hamming, std::vector<float>& buffer);
     float frameEnergy(std::vector<float>& buffer);
     void processComplex(int fftLength, std::vector<float>& buffer, std::vector<std::complex<float>>& fft);
     void computeFft(std::vector<std::complex<float>>& fft);
@@ -31,7 +31,6 @@ namespace voice {
 
     const MfccFilter& mfccFilter_;
     const int frameLength_;
-    std::vector<double> hamming; // Hamming window
   };
 } // namespace voice
 
