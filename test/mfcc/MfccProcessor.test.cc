@@ -49,4 +49,22 @@ namespace voice {
     ASSERT_NEAR(buffer[4], 7.52, VOICE_MFCC_DELTA);
   }
 
+  TEST(MfccProcessorTest, ProcessComplex) {
+    MfccFilter mfccFilter(samplingRate, 5);
+    MfccProcessor mfccProcessor(mfccFilter, 5);
+
+    vector<float> buffer = {21.36, 16.2, 19845.0, 0.0, 7.52};
+    vector<complex<float>> fft;
+    mfccProcessor.processComplex(10, buffer, fft);
+
+    EXPECT_EQ(10, fft.size());
+    ASSERT_NEAR(fft[0].real(), 21.36, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(fft[1].real(), 16.2, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(fft[2].real(), 19845.0, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(fft[3].real(), 0.0, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(fft[4].real(), 7.52, VOICE_MFCC_DELTA);
+    for (int i = 5; i < 10; i++) ASSERT_NEAR(fft[i].real(), 0.0, VOICE_MFCC_DELTA);
+    for (int i = 0; i < 10; i++) ASSERT_NEAR(fft[i].imag(), 0.0, VOICE_MFCC_DELTA);
+  }
+
 } // namespace voice
