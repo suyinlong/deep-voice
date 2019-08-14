@@ -15,7 +15,7 @@ namespace voice {
   }
 
   void MfccProcessor::initHamming() {
-    hamming = vector<double>(frameLength_);
+    hamming.resize(frameLength_);
     generate(hamming.begin(), hamming.end(),
       [&, i = 0] () mutable {
         return (float)(0.54 - 0.46 * cos((float)i++ * TWO_PI / (float)(frameLength_ - 1)));
