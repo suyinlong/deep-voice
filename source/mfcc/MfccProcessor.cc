@@ -101,7 +101,7 @@ namespace voice {
       });
   }
 
-  void MfccProcessor::computeMelEN(int filterNumber, int fftLength, vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
+  void MfccProcessor::computeMelEnergy(int filterNumber, int fftLength, vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
     melEnergy.resize(filterNumber);
     generate(melEnergy.begin(), melEnergy.end(),
       [&, i = 0] () mutable {

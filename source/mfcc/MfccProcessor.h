@@ -23,8 +23,21 @@ namespace voice {
     void processComplex(int fftLength, std::vector<float>& buffer, std::vector<std::complex<float>>& fft);
     void computeFft(std::vector<std::complex<float>>& fft);
     void computeMagSquare(std::vector<std::complex<float>>& fft, std::vector<float>& mag);
-    void computeMelEN(int filterNumber, int fftLength, std::vector<std::vector<float>>& filterWeight, std::vector<float>& mag, std::vector<float>& melEnergy);
+    void computeMelEnergy(int filterNumber, int fftLength, std::vector<std::vector<float>>& filterWeight, std::vector<float>& mag, std::vector<float>& melEnergy);
     void computeCepstrum(int filterNumber, std::vector<float>& melEnergy, std::vector<float>& coeff);
+
+    template <class T>
+    inline void fillVector(std::vector<T>& v, int expectedSize, T val) {
+      v.resize(expectedSize);
+      std::fill(v.begin(), v.end(), val);
+    }
+
+    template <class T>
+    inline void iotaVector(std::vector<T>& v, int expectedSize, T val) {
+      v.resize(expectedSize);
+      std::iota(v.begin(), v.end(), val);
+    }
+
   private:
     static constexpr float PI = 4.0F * std::atan(1.0F);
     static constexpr float TWO_PI = 8.0F * std::atan(1.0F);
