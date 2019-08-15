@@ -82,4 +82,21 @@ namespace voice {
     ASSERT_NEAR(mag[1], 7.25, VOICE_MFCC_DELTA);
   }
 
+  TEST(MfccPrcessorTest, ComputeMelEnergy) {
+    MfccFilter mfccFilter(samplingRate, 5);
+    MfccProcessor mfccProcessor(mfccFilter, 5);
+
+    vector<vector<float>> filterWeight = {{0.0, 1.0}, {0.25, 0.75}, {0.5, 0.5}, {0.75, 0.25}, {1.0, 0.0}};
+    vector<float> mag = {25.0, 7.25};
+    vector<float> melEnergy;
+    mfccProcessor.computeMelEnergy(filterWeight, mag, melEnergy);
+
+    EXPECT_EQ(5, melEnergy.size());
+    ASSERT_NEAR(melEnergy[0], 1.981001469, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(melEnergy[1], 2.458519895, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(melEnergy[2], 2.780370863, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(melEnergy[3], 3.023469029, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(melEnergy[4], 3.218875825, VOICE_MFCC_DELTA);
+  }
+
 } // namespace voice
