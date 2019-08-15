@@ -111,7 +111,8 @@ namespace voice {
       });
   }
 
-  void MfccProcessor::computeCepstrum(int filterNumber, vector<float>& melEnergy, vector<float>& coeff) {
+  void MfccProcessor::computeCepstrum(vector<float>& melEnergy, vector<float>& coeff) {
+    int filterNumber = melEnergy.size();
     vector<float> ee(melEnergy);
     for_each(ee.begin(), ee.end(),
       [j = 0] (float &e) mutable {

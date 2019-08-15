@@ -24,7 +24,7 @@ namespace voice {
     void computeFft(std::vector<std::complex<float>>& fft);
     void computeMagSquare(std::vector<std::complex<float>>& fft, std::vector<float>& mag);
     void computeMelEnergy(std::vector<std::vector<float>>& filterWeight, std::vector<float>& mag, std::vector<float>& melEnergy);
-    void computeCepstrum(int filterNumber, std::vector<float>& melEnergy, std::vector<float>& coeff);
+    void computeCepstrum(std::vector<float>& melEnergy, std::vector<float>& coeff);
 
     template <class T>
     inline void fillVector(std::vector<T>& v, int expectedSize, T val) {
