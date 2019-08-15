@@ -99,4 +99,20 @@ namespace voice {
     ASSERT_NEAR(melEnergy[4], 3.218875825, VOICE_MFCC_DELTA);
   }
 
+  TEST(MfccProcessorTest, ComputeCepstrum) {
+    MfccFilter mfccFilter(samplingRate, 5);
+    MfccProcessor mfccProcessor(mfccFilter, 5);
+
+    vector<float> melEnergy = {1.981001469, 2.458519895, 2.780370863, 3.023469029, 3.218875825};
+    vector<float> coeff;
+    mfccProcessor.computeCepstrum(melEnergy, coeff);
+
+    EXPECT_EQ(12, coeff.size());
+    ASSERT_NEAR(coeff[0], 14.694505647, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(coeff[1], 11.888104792, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(coeff[2], 4.540851969, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(coeff[3], -4.540851969, VOICE_MFCC_DELTA);
+    ASSERT_NEAR(coeff[4], -11.888104792, VOICE_MFCC_DELTA);
+  }
+
 } // namespace voice
