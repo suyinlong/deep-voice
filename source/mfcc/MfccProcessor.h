@@ -23,7 +23,7 @@ namespace voice {
     void processComplex(int fftLength, std::vector<float>& buffer, std::vector<std::complex<float>>& fft);
     void computeFft(std::vector<std::complex<float>>& fft);
     void computeMagSquare(std::vector<std::complex<float>>& fft, std::vector<float>& mag);
-    void computeMelEnergy(int filterNumber, int fftLength, std::vector<std::vector<float>>& filterWeight, std::vector<float>& mag, std::vector<float>& melEnergy);
+    void computeMelEnergy(std::vector<std::vector<float>>& filterWeight, std::vector<float>& mag, std::vector<float>& melEnergy);
     void computeCepstrum(int filterNumber, std::vector<float>& melEnergy, std::vector<float>& coeff);
 
     template <class T>

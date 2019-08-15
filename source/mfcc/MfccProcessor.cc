@@ -101,8 +101,8 @@ namespace voice {
       });
   }
 
-  void MfccProcessor::computeMelEnergy(int filterNumber, int fftLength, vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
-    melEnergy.resize(filterNumber);
+  void MfccProcessor::computeMelEnergy(vector<vector<float>>& filterWeight, vector<float>& mag, vector<float>& melEnergy) {
+    melEnergy.resize(filterWeight.size());
     generate(melEnergy.begin(), melEnergy.end(),
       [&, i = 0] () mutable {
         float e = inner_product(filterWeight[i].begin(), filterWeight[i].end(), mag.begin(), 0.0);
