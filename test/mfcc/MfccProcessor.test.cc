@@ -23,7 +23,6 @@ namespace voice {
     vector<double> hamming;
     mfccProcessor.initHamming(hamming);
 
-    // Length = 5, Hamming window = {0.08, 0.54, 1.00, 0.54, 0.08}
     EXPECT_EQ(5, hamming.size());
     ASSERT_NEAR(hamming[0], 0.08, VOICE_MFCC_DELTA);
     ASSERT_NEAR(hamming[1], 0.54, VOICE_MFCC_DELTA);
