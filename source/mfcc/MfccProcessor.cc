@@ -47,11 +47,7 @@ namespace voice {
 
   void MfccProcessor::computeFft(vector<complex<float>>& fft) {
     int fftLen = fft.size();
-    unsigned long ulPower = 0, fftLen1 = fftLen - 1;
-    while (fftLen1 > 0) {
-      ulPower++;
-      fftLen1 >>= 1;
-    }
+    unsigned long ulPower = (fftLen == 1) ? 0 : log2(fftLen - 1) + 1;
 
     bitset<sizeof(unsigned long) * 8> bsIndex;
     unsigned long ulIndex, ulK;
