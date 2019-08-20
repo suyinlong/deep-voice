@@ -1,4 +1,7 @@
 #include "mfcc/WavReader.h"
+
+#include <vector>
+
 #include "gtest/gtest.h"
 #include "MfccTestConfig.h"
 
@@ -21,7 +24,9 @@ namespace voice {
   TEST(WavReaderTest, ReadFrame) {
     WavReader reader(VOICE_MFCC_FILEPATH);
     reader.init();
-    EXPECT_EQ(0, reader.read().size());
+
+    std::vector<short> buffer;
+    EXPECT_EQ(0, reader.read(buffer));
   }
 
 } // namespace voice

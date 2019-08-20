@@ -35,7 +35,7 @@ namespace voice {
     bool isInitialized();
     int getSamplingLength();
     int getFrameLength();
-    std::vector<short> read();
+    int read(std::vector<short>& buffer);
   private:
     std::ifstream file;
     WavHeader header;

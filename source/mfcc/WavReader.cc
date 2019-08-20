@@ -56,15 +56,16 @@ namespace voice {
     return frameLength;
   }
 
-  vector<short> WavReader::read() {
-    vector<short> frame(frameLength);
+  int WavReader::read(vector<short>& buffer) {
+    buffer.resize(frameLength);
 
-    file.read((char*)&frame[0], bufferSize);
+    file.read((char*)&buffer[0], bufferSize);
     if (file.gcount() == bufferSize) {
-      return frame;
+      return bufferSize;
     } else {
       cout << "Frame incomplete: " << file.gcount() << " bytes. Return 0 instead." << endl;
-      return vector<short>(0);
+      buffer.clear();
+      return 0;
     }
   }
 } // namespace voice
