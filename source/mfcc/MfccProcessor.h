@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "mfcc/MfccFilter.h"
+#include "mfcc/WavReader.h"
 
 namespace voice {
   class MfccProcessor {
@@ -17,6 +18,7 @@ namespace voice {
     explicit MfccProcessor(MfccFilter& mfccFilter, int frameLength);
     explicit MfccProcessor(MfccFilter& mfccFilter);
     ~MfccProcessor();
+    void process(WavReader reader);
     void initHamming(std::vector<double>& hamming);
     void processHamming(std::vector<short>& frame, std::vector<double>& hamming, std::vector<float>& buffer);
     float frameEnergy(std::vector<float>& buffer);

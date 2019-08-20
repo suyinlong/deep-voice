@@ -17,6 +17,24 @@ namespace voice {
   MfccProcessor::~MfccProcessor() {
   }
 
+  void MfccProcessor::process(WavReader reader) {
+    vector<double> hamming;
+    vector<short> frame;
+    vector<complex<float>> fft;
+    vector<float> buffer, mag, melEnergy, coeff;
+
+    initHamming(hamming);
+    while (reader.read(frame) > 0) {
+      processHamming(buffer, hamming, buffer);
+      flaot energy = frameEnergy(buffer);
+      processComplex(mfccFilter_.getFftLength(), buffer, fft);
+      computeFft(fft);
+      computeMagSquare(fft, mag);
+      computeMelEnergy(mfccFilter.getFilter(), mag, melEnergy);
+      computeCepstrum(melEnergy, coeff);
+    }
+  }
+
   void MfccProcessor::initHamming(vector<double>& hamming) {
     hamming.resize(frameLength_);
     generate(hamming.begin(), hamming.end(),
